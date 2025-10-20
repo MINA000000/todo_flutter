@@ -34,6 +34,17 @@ class AppTheme {
       foregroundColor: white,
       shape: CircleBorder(side: BorderSide(color: white,width: 4))
     ),
+    textTheme: TextTheme(
+      bodyLarge: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: primary
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 12,
+        // fontWeight: FontWeight.bold,
+      ),
+    )
   );
   static ThemeData darkTheme = ThemeData();
   

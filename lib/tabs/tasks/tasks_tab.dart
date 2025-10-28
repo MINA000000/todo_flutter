@@ -1,13 +1,22 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/app_theme.dart';
+import 'package:todo_app/firebase_functions.dart';
+import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/tabs/tasks/task_item.dart';
 
-class TasksTab extends StatelessWidget {
+class TasksTab extends StatefulWidget {
   const TasksTab({super.key});
 
   @override
+  State<TasksTab> createState() => _TasksTabState();
+}
+
+class _TasksTabState extends State<TasksTab> {
+  List<TaskModel> tasks = [];
+  @override
   Widget build(BuildContext context) {
+    if(tasks.isEmpty)getTasks();
     double height = MediaQuery.of(context).size.height;
     return Column(
       children: [
@@ -74,12 +83,23 @@ class TasksTab extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             itemBuilder: (_, index) {
-              return TaskItem();
+              return TaskItem(taskModel: tasks[index]);
             },
-            itemCount: 5,
+            itemCount: tasks.length,
           ),
         ),
       ],
     );
+  }
+
+  Future<void> getTasks() async {
+    tasks = await FirebaseFunctions.getAllTasks();
+    tasks.sort((a, b) {
+     return (b.date.toString().compareTo(a.date.toString()));
+    },);
+    print(tasks.length);
+    setState(() {
+      
+    });
   }
 }

@@ -12,7 +12,7 @@ class DefaultElevatedButton extends StatelessWidget {
         backgroundColor: AppTheme.primary,
         fixedSize: Size(255, 52),
       ),
-      onPressed: () {},
+      onPressed: onPress,
       child: Text(
         text,
         style: Theme.of(

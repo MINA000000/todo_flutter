@@ -57,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Icon(Icons.add,),    
         ),
       ),
-    
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

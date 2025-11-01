@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/tabs/tasks/tasks_provider.dart';
 import 'package:todo_app/widgets/default_elevated_button.dart';
 import 'package:todo_app/widgets/text_form.dart';
 
@@ -90,11 +92,9 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
               onPress: () {
                 if (formKey.currentState!.validate()) {
                   addTask();
-                  Navigator.pop(context);
                 } else {
                   print("catch error here baby");
                 }
-                
               },
               text: 'Add',
             ),
@@ -110,6 +110,12 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
       description: descriptionController.text,
       date: DateTime.now(),
     );
-    FirebaseFunctions.addTaskToFirestore(taskModel);
+    FirebaseFunctions.addTaskToFirestore(taskModel).timeout(
+      Duration(milliseconds: 200),
+      onTimeout: () {
+        Navigator.pop(context);
+        Provider.of<TasksProvider>(context, listen: false).getTasks();
+      },
+    );
   }
 }

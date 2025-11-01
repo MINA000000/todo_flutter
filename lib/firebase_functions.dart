@@ -10,7 +10,7 @@ class FirebaseFunctions {
                 TaskModel.fromJson(snapshot.data()!),
             toFirestore: (taskModel, _) => taskModel.toJson(),
           );
-  static addTaskToFirestore(TaskModel taskModel) {
+  static Future<void> addTaskToFirestore(TaskModel taskModel) {
     CollectionReference<TaskModel> tasks = getCollectiontasks();
     DocumentReference<TaskModel> doc = tasks.doc();
     taskModel.id = doc.id;

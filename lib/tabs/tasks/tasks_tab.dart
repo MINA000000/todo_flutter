@@ -5,7 +5,7 @@ import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/tabs/tasks/task_item.dart';
-import 'package:todo_app/tabs/tasks/tasks_provider.dart';
+import 'package:todo_app/providers/tasks_provider.dart';
 
 class TasksTab extends StatefulWidget {
   const TasksTab({super.key});
@@ -54,7 +54,11 @@ class _TasksTabState extends State<TasksTab> {
                 right: 0,
                 child: EasyInfiniteDateTimeLine(
                   firstDate: DateTime.now().subtract(Duration(days: 365)),
-                  focusDate: DateTime.now(),
+                  focusDate: tasksProvider.selectedDate,
+                  onDateChange: (date) {
+                    tasksProvider.changeSelectedDate(date);
+                    tasksProvider.getTasks();
+                  },
                   lastDate: DateTime.now().add(Duration(days: 365)),
                   showTimelineHeader: false,
                   dayProps: EasyDayProps(
@@ -71,6 +75,16 @@ class _TasksTabState extends State<TasksTab> {
                       // borderRadius: 4,
                     ),
                     inactiveDayStyle: DayStyle(
+                      decoration: BoxDecoration(
+                        color: AppTheme.white,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      dayNumStyle: Theme.of(context).textTheme.bodyLarge
+                          ?.copyWith(color: AppTheme.black, fontSize: 15),
+                      dayStrStyle: Theme.of(context).textTheme.bodyLarge
+                          ?.copyWith(color: AppTheme.black, fontSize: 15),
+                    ),
+                    todayStyle: DayStyle(
                       decoration: BoxDecoration(
                         color: AppTheme.white,
                         borderRadius: BorderRadius.circular(5),

@@ -13,10 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Widget> tabs= [
-    TasksTab(),
-    SettingsTab()
-  ];
+  List<Widget> tabs = [TasksTab(), SettingsTab()];
   int currentIndx = 0;
   @override
   Widget build(BuildContext context) {
@@ -36,25 +33,27 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           },
           items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Tasks',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Tasks'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
             ),
-        ]),
+          ],
+        ),
       ),
       body: tabs[currentIndx],
       floatingActionButton: Container(
         width: 65,
         height: 65,
         child: FloatingActionButton(
-          onPressed: (){
-            showModalBottomSheet(context: context, builder: (context) => BottomTasksSheet(),);
+          onPressed: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => BottomTasksSheet(),
+            );
           },
-          child: Icon(Icons.add,),    
+          child: Icon(Icons.add),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -7,7 +7,7 @@ import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/providers/tasks_provider.dart';
 import 'package:todo_app/widgets/default_elevated_button.dart';
-import 'package:todo_app/widgets/text_form.dart';
+import 'package:todo_app/widgets/default_text_form.dart';
 
 class BottomTasksSheet extends StatefulWidget {
   BottomTasksSheet({super.key});
@@ -44,7 +44,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
                   context,
                 ).textTheme.bodyLarge?.copyWith(color: AppTheme.black),
               ),
-              TextForm(
+              DefaultTextForm(
                 hint: 'Enter your title',
                 controller: titleController,
                 validator: (value) {
@@ -54,7 +54,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
                   return null;
                 },
               ),
-              TextForm(
+              DefaultTextForm(
                 hint: 'Enter your description',
                 controller: descriptionController,
                 validator: (value) {

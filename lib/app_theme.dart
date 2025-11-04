@@ -21,31 +21,30 @@ class AppTheme {
       unselectedItemColor: grey,
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      selectedIconTheme: IconThemeData(
-        size: 40,
-      ),
-      unselectedIconTheme: IconThemeData(
-        size: 30,
-      )
+      selectedIconTheme: IconThemeData(size: 40),
+      unselectedIconTheme: IconThemeData(size: 30),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: primary,
       elevation: 0,
       foregroundColor: white,
-      shape: CircleBorder(side: BorderSide(color: white,width: 4))
+      shape: CircleBorder(side: BorderSide(color: white, width: 4)),
     ),
     textTheme: TextTheme(
       bodyLarge: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        color: primary
+        color: primary,
       ),
       bodyMedium: TextStyle(
         fontSize: 12,
         // fontWeight: FontWeight.bold,
       ),
-    )
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+    ),
   );
   static ThemeData darkTheme = ThemeData();
-  
 }

@@ -10,7 +10,7 @@ import 'package:todo_app/widgets/default_elevated_button.dart';
 import 'package:todo_app/widgets/default_text_form.dart';
 
 class BottomTasksSheet extends StatefulWidget {
-  BottomTasksSheet({super.key});
+  const BottomTasksSheet({super.key});
 
   @override
   State<BottomTasksSheet> createState() => _BottomTasksSheetState();

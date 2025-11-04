@@ -18,10 +18,9 @@ class DefaultTextForm extends StatefulWidget {
 }
 
 class _DefaultTextFormState extends State<DefaultTextForm> {
-  bool obsecure = widget.isPassword;
+  late bool obsecure = widget.isPassword;
   @override
   Widget build(BuildContext context) {
-    
     return TextFormField(
       obscureText: obsecure,
       controller: widget.controller,
@@ -33,7 +32,7 @@ class _DefaultTextFormState extends State<DefaultTextForm> {
                   obsecure = !obsecure;
                   setState(() {});
                 },
-                icon: Icon(Icons.remove_red_eye),
+                icon: Icon(obsecure ? Icons.visibility : Icons.visibility_off),
               )
             : null,
       ),

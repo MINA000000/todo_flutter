@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/auth/register_screen.dart';
 import 'package:todo_app/widgets/default_elevated_button.dart';
 import 'package:todo_app/widgets/default_text_form.dart';
 
@@ -48,6 +49,20 @@ class LoginScreen extends StatelessWidget {
                   if (formKey.currentState!.validate()) {}
                 },
                 text: 'Login',
+              ),
+              SizedBox(height: 16),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(
+                    context,
+                  ).pushReplacementNamed(RegisterScreen.route);
+                },
+                child: Text(
+                  'Don\'t have an account?',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontSize: 16),
+                ),
               ),
             ],
           ),

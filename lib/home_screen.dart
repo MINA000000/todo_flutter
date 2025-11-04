@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: tabs[currentIndx],
-      floatingActionButton: Container(
+      floatingActionButton: SizedBox(
         width: 65,
         height: 65,
         child: FloatingActionButton(

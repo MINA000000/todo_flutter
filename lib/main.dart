@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,15 +28,27 @@ class TodoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      home: Lol(),
       routes: {
         HomeScreen.route: (_) => HomeScreen(),
         LoginScreen.route: (_) => LoginScreen(),
-        RegisterScreen.route:(_)=>RegisterScreen()
+        RegisterScreen.route: (_) => RegisterScreen(),
+        Lol.route: (_) => Lol(),
       },
-      initialRoute: LoginScreen.route,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,
     );
+  }
+}
+
+class Lol extends StatelessWidget {
+  const Lol({super.key});
+  static final String route = '/lol';
+  @override
+  Widget build(BuildContext context) {
+    return FirebaseAuth.instance.currentUser != null
+        ? HomeScreen()
+        : LoginScreen();
   }
 }

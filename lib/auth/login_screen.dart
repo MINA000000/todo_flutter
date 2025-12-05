@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/auth/register_screen.dart';
+import 'package:todo_app/firebase_functions.dart';
+import 'package:todo_app/home_screen.dart';
+import 'package:todo_app/models/user_model.dart';
+import 'package:todo_app/providers/tasks_provider.dart';
 import 'package:todo_app/widgets/default_elevated_button.dart';
 import 'package:todo_app/widgets/default_text_form.dart';
 
@@ -13,7 +19,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login Screen')),
+      appBar: AppBar(
+        title: Text('Login', style: Theme.of(context).textTheme.headlineLarge),
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12),
         child: Form(
@@ -46,7 +54,23 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: 32),
               DefaultElevatedButton(
                 onPress: () {
-                  if (formKey.currentState!.validate()) {}
+                  if (formKey.currentState!.validate()) {
+                    login()
+                        .then((userModel) {
+                          if (context.mounted) {
+                            Provider.of<TasksProvider>(
+                              context,
+                              listen: false,
+                            ).currentUser = userModel;
+                            Navigator.of(
+                              context,
+                            ).pushReplacementNamed(HomeScreen.route);
+                          }
+                        })
+                        .catchError((error) {
+                          print(error);
+                        });
+                  }
                 },
                 text: 'Login',
               ),
@@ -68,6 +92,13 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Future<UserModel> login() async {
+    return FirebaseFunctions.login(
+      email: emailController.text,
+      password: passwordController.text,
     );
   }
 }

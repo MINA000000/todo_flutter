@@ -1,5 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/auth/login_screen.dart';
+import 'package:todo_app/firebase_functions.dart';
+import 'package:todo_app/home_screen.dart';
+import 'package:todo_app/models/user_model.dart';
+import 'package:todo_app/providers/tasks_provider.dart';
 import 'package:todo_app/widgets/default_elevated_button.dart';
 import 'package:todo_app/widgets/default_text_form.dart';
 
@@ -17,7 +25,12 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login Screen')),
+      appBar: AppBar(
+        title: Text(
+          'Regiser',
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12),
         child: Form(
@@ -77,9 +90,30 @@ class RegisterScreen extends StatelessWidget {
               SizedBox(height: 32),
               DefaultElevatedButton(
                 onPress: () {
-                  if (formKey.currentState!.validate()) {}
+                  if (formKey.currentState!.validate()) {
+                    register()
+                        .then((userModel) {
+                          if (!context.mounted) return;
+                          Provider.of<TasksProvider>(
+                            context,
+                            listen: false,
+                          ).currentUser = userModel;
+                          Navigator.of(
+                            context,
+                          ).pushReplacementNamed(HomeScreen.route);
+                        })
+                        .catchError((error) {
+                          if (error is FirebaseAuthException) {
+                            Fluttertoast.showToast(
+                              msg: error.code,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                            );
+                          }
+                        });
+                  }
                 },
-                text: 'Login',
+                text: 'Register',
               ),
               SizedBox(height: 16),
               TextButton(
@@ -97,6 +131,14 @@ class RegisterScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Future<UserModel> register() {
+    return FirebaseFunctions.register(
+      email: emailController.text,
+      name: nameController.text,
+      password: passwordController.text,
     );
   }
 }

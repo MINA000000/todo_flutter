@@ -21,11 +21,11 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
       descriptionController = TextEditingController();
 
   DateFormat dateformat = DateFormat('dd/MM/yyyy');
-
-  DateTime selectedDate = DateTime.now();
+  // DateTime selectedDate = DateTime.now();
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+  TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -74,19 +74,19 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
               SizedBox(height: 5),
               GestureDetector(
                 onTap: () async {
-                  selectedDate =
+                  tasksProvider.selectedDate =
                       await showDatePicker(
                         context: context,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime.now().add(Duration(days: 365)),
-                        currentDate: DateTime.now(),
-                        initialDate: selectedDate,
+                        firstDate: tasksProvider.selectedDate,
+                        lastDate: tasksProvider.selectedDate.add(Duration(days: 365)),
+                        currentDate: tasksProvider.selectedDate,
+                        initialDate: tasksProvider.selectedDate,
                       ) ??
-                      selectedDate;
+                      tasksProvider.selectedDate;
                   setState(() {});
                 },
                 child: Text(
-                  dateformat.format(selectedDate),
+                  dateformat.format(tasksProvider.selectedDate),
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium?.copyWith(fontSize: 15),
@@ -96,7 +96,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
               DefaultElevatedButton(
                 onPress: () {
                   if (formKey.currentState!.validate()) {
-                    addTask();
+                    addTask(tasksProvider.selectedDate);
                   } else {
                     print("catch error here baby");
                   }
@@ -110,11 +110,11 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
     );
   }
 
-  void addTask() {
+  void addTask(DateTime datetime) {
     TaskModel taskModel = TaskModel(
       title: titleController.text,
       description: descriptionController.text,
-      date: DateTime.now(),
+      date: datetime,
     );
     FirebaseFunctions.addTaskToFirestore(taskModel)
         .timeout(

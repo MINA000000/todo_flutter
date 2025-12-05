@@ -40,6 +40,11 @@ class AppTheme {
         fontSize: 12,
         // fontWeight: FontWeight.bold,
       ),
+      headlineLarge: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: black,
+      ),
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,

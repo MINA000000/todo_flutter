@@ -72,4 +72,9 @@ class FirebaseFunctions {
         .get();
     return documentSnapshot.data()!;
   }
+
+  static Future<void> changeTask(TaskModel taskModel){
+    CollectionReference tasksCollection = getCollectiontasks();
+    return tasksCollection.doc(taskModel.id).set(taskModel);
+  }
 }

@@ -25,7 +25,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-  TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
+    TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -77,8 +77,10 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
                   tasksProvider.selectedDate =
                       await showDatePicker(
                         context: context,
-                        firstDate: tasksProvider.selectedDate,
-                        lastDate: tasksProvider.selectedDate.add(Duration(days: 365)),
+                        firstDate: DateTime.now(),
+                        lastDate:  DateTime.now().add(
+                          Duration(days: 365),
+                        ),
                         currentDate: tasksProvider.selectedDate,
                         initialDate: tasksProvider.selectedDate,
                       ) ??
@@ -117,20 +119,17 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
       date: datetime,
     );
     FirebaseFunctions.addTaskToFirestore(taskModel)
-        .timeout(
-          Duration(milliseconds: 200),
-          onTimeout: () {
-            Navigator.pop(context);
-            Provider.of<TasksProvider>(context, listen: false).getTasks();
-            Fluttertoast.showToast(
-              msg: "Task added successfully",
-              backgroundColor: Colors.green,
-              fontSize: 16,
-              textColor: Colors.white,
-              toastLength: Toast.LENGTH_LONG,
-            );
-          },
-        )
+        .then((value) {
+          Navigator.pop(context);
+          Provider.of<TasksProvider>(context, listen: false).getTasks();
+          Fluttertoast.showToast(
+            msg: "Task added successfully",
+            backgroundColor: Colors.green,
+            fontSize: 16,
+            textColor: Colors.white,
+            toastLength: Toast.LENGTH_LONG,
+          );
+        })
         .catchError((e) {
           Fluttertoast.showToast(
             msg: "Something went wrong",

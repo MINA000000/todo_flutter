@@ -8,11 +8,12 @@ import 'package:todo_app/auth/login_screen.dart';
 import 'package:todo_app/auth/register_screen.dart';
 import 'package:todo_app/home_screen.dart';
 import 'package:todo_app/providers/tasks_provider.dart';
+import 'package:todo_app/tabs/tasks/task_details.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FirebaseFirestore.instance.disableNetwork();
+  // await FirebaseFirestore.instance.disableNetwork();
   runApp(
     ChangeNotifierProvider(
       create: (context) => TasksProvider(),

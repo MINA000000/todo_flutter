@@ -12,6 +12,7 @@ class SettingsProvider with ChangeNotifier {
     prefs = await SharedPreferences.getInstance();
     lan = prefs!.getString('language') ?? 'en';
     mode = prefs!.getString('mode') ?? 'light';
+    notifyListeners();
   }
 
   void changeLanguage(String selectedLanguage) {

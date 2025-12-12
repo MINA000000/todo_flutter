@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/firebase_functions.dart';
+import 'package:todo_app/l10n/app_localizations.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/providers/tasks_provider.dart';
 import 'package:todo_app/widgets/default_elevated_button.dart';
@@ -39,13 +40,13 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
           child: Column(
             children: [
               Text(
-                'Add new Task',
+                AppLocalizations.of(context)!.addNewTask,
                 style: Theme.of(
                   context,
                 ).textTheme.bodyLarge?.copyWith(color: AppTheme.black),
               ),
               DefaultTextForm(
-                hint: 'Enter your title',
+                hint: AppLocalizations.of(context)!.enterTitle,
                 controller: titleController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -55,7 +56,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
                 },
               ),
               DefaultTextForm(
-                hint: 'Enter your description',
+                hint: AppLocalizations.of(context)!.enterDescription,
                 controller: descriptionController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -66,7 +67,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
               ),
               SizedBox(height: 10),
               Text(
-                'Select Date',
+                AppLocalizations.of(context)!.selectDate,
                 style: Theme.of(
                   context,
                 ).textTheme.bodyLarge?.copyWith(color: AppTheme.black),
@@ -78,9 +79,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
                       await showDatePicker(
                         context: context,
                         firstDate: DateTime.now(),
-                        lastDate:  DateTime.now().add(
-                          Duration(days: 365),
-                        ),
+                        lastDate: DateTime.now().add(Duration(days: 365)),
                         currentDate: tasksProvider.selectedDate,
                         initialDate: tasksProvider.selectedDate,
                       ) ??
@@ -103,7 +102,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
                     print("catch error here baby");
                   }
                 },
-                text: 'Add',
+                text: AppLocalizations.of(context)!.add,
               ),
             ],
           ),
@@ -123,7 +122,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
           Navigator.pop(context);
           Provider.of<TasksProvider>(context, listen: false).getTasks();
           Fluttertoast.showToast(
-            msg: "Task added successfully",
+            msg: AppLocalizations.of(context)!.taskAddedSuccessfully,
             backgroundColor: Colors.green,
             fontSize: 16,
             textColor: Colors.white,
@@ -132,7 +131,7 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
         })
         .catchError((e) {
           Fluttertoast.showToast(
-            msg: "Something went wrong",
+            msg: AppLocalizations.of(context)!.somethingWentWrong,
             backgroundColor: Colors.red,
             fontSize: 16,
             textColor: Colors.white,

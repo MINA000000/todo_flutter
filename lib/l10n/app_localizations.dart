@@ -103,6 +103,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'ToDo App'**
   String get todoTitle;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Mode'**
+  String get mode;
+
+  /// No description provided for @addNewTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Task'**
+  String get addNewTask;
+
+  /// No description provided for @enterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter title'**
+  String get enterTitle;
+
+  /// No description provided for @enterDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Description'**
+  String get enterDescription;
+
+  /// No description provided for @selectDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get selectDate;
+
+  /// No description provided for @taskAddedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Task added successfully'**
+  String get taskAddedSuccessfully;
+
+  /// No description provided for @somethingWentWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get somethingWentWrong;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
 }
 
 class _AppLocalizationsDelegate

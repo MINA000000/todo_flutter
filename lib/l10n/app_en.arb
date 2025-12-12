@@ -1,4 +1,12 @@
 {
-  "todoTitle": "ToDo App"
-  
+  "todoTitle": "ToDo App",
+  "language": "Language",
+  "mode": "Mode",
+  "addNewTask": "Add New Task",
+  "enterTitle": "Enter title",
+  "enterDescription": "Enter Description",
+  "selectDate": "Select Date",
+  "taskAddedSuccessfully": "Task added successfully",
+  "somethingWentWrong": "Something went wrong",
+  "add":"Add"
 }

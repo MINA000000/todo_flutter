@@ -65,10 +65,10 @@ class SettingsTab extends StatelessWidget {
           ),
           SizedBox(height: 15),
           Padding(
-            padding: EdgeInsets.only(left: 20),
+            padding: EdgeInsetsDirectional.only(start:20 ),
             child: Align(
               alignment: AlignmentDirectional.centerStart,
-              child: Text('Language', style: TextStyle(fontSize: 20)),
+              child: Text(AppLocalizations.of(context)!.language, style: TextStyle(fontSize: 20)),
             ),
           ),
           SizedBox(height: 15),
@@ -89,10 +89,10 @@ class SettingsTab extends StatelessWidget {
           ),
           SizedBox(height: 15),
           Padding(
-            padding: EdgeInsets.only(left: 20),
+            padding: EdgeInsetsDirectional.only(start:20 ),
             child: Align(
               alignment: AlignmentDirectional.centerStart,
-              child: Text('Mode', style: TextStyle(fontSize: 20)),
+              child: Text(AppLocalizations.of(context)!.mode, style: TextStyle(fontSize: 20)),
             ),
           ),
 

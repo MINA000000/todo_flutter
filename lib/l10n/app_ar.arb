@@ -1,4 +1,12 @@
 {
-  "todoTitle": "تطبيق المهام"
-  
+  "todoTitle": "تطبيق المهام",
+  "language":"اللغة",
+  "mode":"الوضع",
+  "addNewTask":"اضف مهمة جديدة",
+  "enterTitle":"ادخل العنوان",
+  "enterDescription": "ادخل التفاصيل",
+  "selectDate": "اختر التاريخ",
+  "taskAddedSuccessfully": "تم اضافة المهمة بنجاح",
+  "somethingWentWrong": "حدث خطأ ما",
+  "add":"اضف"
 }

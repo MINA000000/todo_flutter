@@ -53,6 +53,7 @@ class _TasksTabState extends State<TasksTab> {
                 left: 0,
                 right: 0,
                 child: EasyInfiniteDateTimeLine(
+                  
                   firstDate: DateTime.now().subtract(Duration(days: 365)),
                   focusDate: tasksProvider.selectedDate,
                   onDateChange: (date) {

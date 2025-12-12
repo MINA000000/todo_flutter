@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +6,21 @@ import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/auth/login_screen.dart';
 import 'package:todo_app/auth/register_screen.dart';
 import 'package:todo_app/home_screen.dart';
+import 'package:todo_app/l10n/app_localizations.dart';
+import 'package:todo_app/providers/settings_provider.dart';
 import 'package:todo_app/providers/tasks_provider.dart';
-import 'package:todo_app/tabs/tasks/task_details.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // await FirebaseFirestore.instance.disableNetwork();
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => TasksProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => TasksProvider()),
+        ChangeNotifierProvider(create: (context) => SettingsProvider()),
+      ],
+
       child: const TodoApp(),
     ),
   );
@@ -27,6 +31,9 @@ class TodoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsProvider settingsProvider = Provider.of<SettingsProvider>(
+      context,
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Lol(),
@@ -38,7 +45,12 @@ class TodoApp extends StatelessWidget {
       },
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.light,
+      themeMode: settingsProvider.mode == 'light'
+          ? ThemeMode.light
+          : ThemeMode.dark,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: settingsProvider.lan == 'en' ? Locale('en') : Locale('ar'),
     );
   }
 }

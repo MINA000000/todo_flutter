@@ -6,6 +6,7 @@ import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/l10n/app_localizations.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/settings_provider.dart';
 import 'package:todo_app/providers/tasks_provider.dart';
 import 'package:todo_app/widgets/default_elevated_button.dart';
 import 'package:todo_app/widgets/default_text_form.dart';
@@ -27,11 +28,15 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
   @override
   Widget build(BuildContext context) {
     TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: Container(
+        color: settingsProvider.mode == 'light'
+            ? AppTheme.white
+            : AppTheme.blackNavi,
         padding: EdgeInsets.all(15),
         height: MediaQuery.of(context).size.height * .4,
         width: double.infinity,
@@ -41,9 +46,11 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
             children: [
               Text(
                 AppLocalizations.of(context)!.addNewTask,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(color: AppTheme.black),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: settingsProvider.mode == 'light'
+                      ? AppTheme.black
+                      : AppTheme.white,
+                ),
               ),
               DefaultTextForm(
                 hint: AppLocalizations.of(context)!.enterTitle,
@@ -68,9 +75,11 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
               SizedBox(height: 10),
               Text(
                 AppLocalizations.of(context)!.selectDate,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(color: AppTheme.black),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: settingsProvider.mode == 'light'
+                      ? AppTheme.black
+                      : AppTheme.grey,
+                ),
               ),
               SizedBox(height: 5),
               GestureDetector(
@@ -81,16 +90,19 @@ class _BottomTasksSheetState extends State<BottomTasksSheet> {
                         firstDate: DateTime.now(),
                         lastDate: DateTime.now().add(Duration(days: 365)),
                         currentDate: tasksProvider.selectedDate,
-                        initialDate: tasksProvider.selectedDate,
+                        initialDate: DateTime.now(),
                       ) ??
                       tasksProvider.selectedDate;
                   setState(() {});
                 },
                 child: Text(
                   dateformat.format(tasksProvider.selectedDate),
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(fontSize: 15),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: 15,
+                    color: settingsProvider.mode == 'light'
+                        ? AppTheme.black
+                        : AppTheme.white,
+                  ),
                 ),
               ),
               SizedBox(height: 10),

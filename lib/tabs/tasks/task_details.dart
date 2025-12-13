@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/settings_provider.dart';
 import 'package:todo_app/providers/tasks_provider.dart';
 import 'package:todo_app/widgets/default_elevated_button.dart';
 import 'package:todo_app/widgets/default_text_form.dart';
@@ -35,16 +36,23 @@ class _TaskDetailsState extends State<TaskDetails> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        iconTheme: IconThemeData(color: AppTheme.white),
+        iconTheme: IconThemeData(
+          color: settingsProvider.mode == 'light'
+              ? AppTheme.white
+              : AppTheme.blackNavi,
+        ),
       ),
       body: Column(
         children: [
           Expanded(
             child: Container(
-              color: AppTheme.backgroundLight,
+              color: settingsProvider.mode == 'light'
+                  ? AppTheme.backgroundLight
+                  : AppTheme.backgroundDark,
               // height: height * .19,
               child: Stack(
                 children: [
@@ -59,7 +67,9 @@ class _TaskDetailsState extends State<TaskDetails> {
                       child: Text(
                         "To Do List",
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppTheme.white,
+                          color: settingsProvider.mode == 'light'
+                              ? AppTheme.white
+                              : AppTheme.blackNavi,
                           fontSize: 25,
                         ),
                       ),
@@ -70,7 +80,9 @@ class _TaskDetailsState extends State<TaskDetails> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       height: MediaQuery.of(context).size.height * 0.7,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: settingsProvider.mode == 'light'
+                            ? AppTheme.white
+                            : AppTheme.blackNavi,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Form(
@@ -83,7 +95,11 @@ class _TaskDetailsState extends State<TaskDetails> {
                               Text(
                                 'Edit',
                                 style: Theme.of(context).textTheme.bodyLarge
-                                    ?.copyWith(color: AppTheme.black),
+                                    ?.copyWith(
+                                      color: settingsProvider.mode == 'light'
+                                          ? AppTheme.blackNavi
+                                          : AppTheme.white,
+                                    ),
                               ),
                               SizedBox(height: 15),
                               DefaultTextForm(
@@ -111,7 +127,11 @@ class _TaskDetailsState extends State<TaskDetails> {
                               Text(
                                 'Select Date',
                                 style: Theme.of(context).textTheme.bodyLarge
-                                    ?.copyWith(color: AppTheme.black),
+                                    ?.copyWith(
+                                      color: settingsProvider.mode == 'light'
+                                          ? AppTheme.blackNavi
+                                          : AppTheme.white,
+                                    ),
                               ),
                               SizedBox(height: 10),
                               GestureDetector(
@@ -124,7 +144,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                                           Duration(days: 365),
                                         ),
                                         currentDate: selectedDate,
-                                        initialDate: selectedDate,
+                                        initialDate: DateTime.now(),
                                       ) ??
                                       selectedDate;
                                   setState(() {});
@@ -132,7 +152,12 @@ class _TaskDetailsState extends State<TaskDetails> {
                                 child: Text(
                                   dateformat.format(selectedDate),
                                   style: Theme.of(context).textTheme.bodyMedium
-                                      ?.copyWith(fontSize: 15),
+                                      ?.copyWith(
+                                        fontSize: 15,
+                                        color: settingsProvider.mode == 'light'
+                                            ? AppTheme.blackNavi
+                                            : AppTheme.white,
+                                      ),
                                 ),
                               ),
                               SizedBox(height: 30),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/l10n/app_localizations.dart';
+import 'package:todo_app/providers/settings_provider.dart';
 import 'package:todo_app/tabs/tasks/task_item.dart';
 import 'package:todo_app/providers/tasks_provider.dart';
 
@@ -19,7 +20,8 @@ class _TasksTabState extends State<TasksTab> {
   Widget build(BuildContext context) {
     // print(AppLocalizations.of(context)!.todoTitle);
     TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
-    if(shouldGetTasks){
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+    if (shouldGetTasks) {
       tasksProvider.getTasks();
       shouldGetTasks = false;
     }
@@ -27,7 +29,9 @@ class _TasksTabState extends State<TasksTab> {
     return Column(
       children: [
         Container(
-          color: AppTheme.backgroundLight,
+          color: settingsProvider.mode == 'light'
+              ? AppTheme.backgroundLight
+              : AppTheme.blackNavi,
           height: height * .19,
           child: Stack(
             children: [
@@ -42,7 +46,9 @@ class _TasksTabState extends State<TasksTab> {
                   child: Text(
                     AppLocalizations.of(context)!.todoTitle,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppTheme.white,
+                      color: settingsProvider.mode == 'light'
+                          ? AppTheme.white
+                          : AppTheme.blackNavi,
                       fontSize: 25,
                     ),
                   ),
@@ -53,7 +59,6 @@ class _TasksTabState extends State<TasksTab> {
                 left: 0,
                 right: 0,
                 child: EasyInfiniteDateTimeLine(
-                  
                   firstDate: DateTime.now().subtract(Duration(days: 365)),
                   focusDate: tasksProvider.selectedDate,
                   onDateChange: (date) {
@@ -68,7 +73,9 @@ class _TasksTabState extends State<TasksTab> {
                     dayStructure: DayStructure.dayStrDayNum,
                     activeDayStyle: DayStyle(
                       decoration: BoxDecoration(
-                        color: AppTheme.white,
+                        color: settingsProvider.mode == 'light'
+                            ? AppTheme.white
+                            : AppTheme.black,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       dayNumStyle: Theme.of(context).textTheme.bodyLarge,
@@ -77,23 +84,47 @@ class _TasksTabState extends State<TasksTab> {
                     ),
                     inactiveDayStyle: DayStyle(
                       decoration: BoxDecoration(
-                        color: AppTheme.white,
+                        color: settingsProvider.mode == 'light'
+                            ? AppTheme.white
+                            : AppTheme.black,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       dayNumStyle: Theme.of(context).textTheme.bodyLarge
-                          ?.copyWith(color: AppTheme.black, fontSize: 15),
+                          ?.copyWith(
+                            color: settingsProvider.mode == 'light'
+                                ? AppTheme.black
+                                : AppTheme.white,
+                            fontSize: 15,
+                          ),
                       dayStrStyle: Theme.of(context).textTheme.bodyLarge
-                          ?.copyWith(color: AppTheme.black, fontSize: 15),
+                          ?.copyWith(
+                            color: settingsProvider.mode == 'light'
+                                ? AppTheme.black
+                                : AppTheme.white,
+                            fontSize: 15,
+                          ),
                     ),
                     todayStyle: DayStyle(
                       decoration: BoxDecoration(
-                        color: AppTheme.white,
+                        color: settingsProvider.mode == 'light'
+                            ? AppTheme.white
+                            : AppTheme.black,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       dayNumStyle: Theme.of(context).textTheme.bodyLarge
-                          ?.copyWith(color: AppTheme.black, fontSize: 15),
+                          ?.copyWith(
+                            color: settingsProvider.mode == 'light'
+                                ? AppTheme.black
+                                : AppTheme.white,
+                            fontSize: 15,
+                          ),
                       dayStrStyle: Theme.of(context).textTheme.bodyLarge
-                          ?.copyWith(color: AppTheme.black, fontSize: 15),
+                          ?.copyWith(
+                            color: settingsProvider.mode == 'light'
+                                ? AppTheme.black
+                                : AppTheme.white,
+                            fontSize: 15,
+                          ),
                     ),
                   ),
                 ),
@@ -112,5 +143,4 @@ class _TasksTabState extends State<TasksTab> {
       ],
     );
   }
-
 }

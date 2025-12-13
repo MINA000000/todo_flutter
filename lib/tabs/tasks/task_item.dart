@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/app_theme.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/settings_provider.dart';
 import 'package:todo_app/providers/tasks_provider.dart';
 import 'package:todo_app/tabs/tasks/task_details.dart';
 
@@ -21,6 +22,7 @@ class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return GestureDetector(
       onLongPress: () {
         Navigator.of(context)..push(
@@ -79,7 +81,9 @@ class _TaskItemState extends State<TaskItem> {
           child: Container(
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: AppTheme.white,
+              color: settingsProvider.mode == 'dark'
+                  ? AppTheme.blackNavi
+                  : AppTheme.white,
               borderRadius: BorderRadius.circular(15),
             ),
             child: Row(
@@ -106,7 +110,14 @@ class _TaskItemState extends State<TaskItem> {
                                 )
                               : theme.textTheme.bodyLarge,
                         ),
-                        Text(widget.taskModel.description),
+                        Text(
+                          widget.taskModel.description,
+                          style: TextStyle(
+                            color: settingsProvider.mode == 'dark'
+                                ? AppTheme.white
+                                : AppTheme.black,
+                          ),
+                        ),
                       ],
                     ),
                   ],

@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        color: AppTheme.white,
+        // color: AppTheme.blackNavi,
         shape: const CircularNotchedRectangle(),
         padding: EdgeInsets.zero,
         notchMargin: 10,

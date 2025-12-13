@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/app_theme.dart';
+import 'package:todo_app/providers/settings_provider.dart';
 
 class DefaultTextForm extends StatefulWidget {
   DefaultTextForm({
@@ -21,11 +24,14 @@ class _DefaultTextFormState extends State<DefaultTextForm> {
   late bool obsecure = widget.isPassword;
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return TextFormField(
       obscureText: obsecure,
       controller: widget.controller,
       decoration: InputDecoration(
         hintText: widget.hint,
+        hintStyle: TextStyle(color: AppTheme.grey),
+        // fillColor: Colors.white,
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {

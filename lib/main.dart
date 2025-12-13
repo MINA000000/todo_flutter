@@ -50,7 +50,7 @@ class TodoApp extends StatelessWidget {
           : ThemeMode.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: settingsProvider.lan == 'en' ? Locale('en') : Locale('ar'),
+      locale: Locale(settingsProvider.lan) ,
     );
   }
 }

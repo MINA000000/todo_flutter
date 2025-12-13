@@ -54,7 +54,9 @@ class SettingsTab extends StatelessWidget {
                     child: Text(
                       AppLocalizations.of(context)!.todoTitle,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: AppTheme.white,
+                        color: settingsProvider.mode == 'light'
+                            ? AppTheme.white
+                            : AppTheme.black,
                         fontSize: 25,
                       ),
                     ),
@@ -65,10 +67,18 @@ class SettingsTab extends StatelessWidget {
           ),
           SizedBox(height: 15),
           Padding(
-            padding: EdgeInsetsDirectional.only(start:20 ),
+            padding: EdgeInsetsDirectional.only(start: 20),
             child: Align(
               alignment: AlignmentDirectional.centerStart,
-              child: Text(AppLocalizations.of(context)!.language, style: TextStyle(fontSize: 20)),
+              child: Text(
+                AppLocalizations.of(context)!.language,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: settingsProvider.mode == 'light'
+                      ? AppTheme.blackNavi
+                      : AppTheme.white,
+                ),
+              ),
             ),
           ),
           SizedBox(height: 15),
@@ -89,10 +99,18 @@ class SettingsTab extends StatelessWidget {
           ),
           SizedBox(height: 15),
           Padding(
-            padding: EdgeInsetsDirectional.only(start:20 ),
+            padding: EdgeInsetsDirectional.only(start: 20),
             child: Align(
               alignment: AlignmentDirectional.centerStart,
-              child: Text(AppLocalizations.of(context)!.mode, style: TextStyle(fontSize: 20)),
+              child: Text(
+                AppLocalizations.of(context)!.mode,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: settingsProvider.mode == 'light'
+                      ? AppTheme.blackNavi
+                      : AppTheme.white,
+                ),
+              ),
             ),
           ),
 
